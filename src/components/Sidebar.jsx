@@ -6,6 +6,8 @@ const Sidebar = ({ activeItem = 'Dashboard', onSelect = () => {} }) => {
     { icon: '📊', label: 'Dashboard' },
     { icon: '📈', label: 'Markets' },
     { icon: '💼', label: 'Portfolio' },
+    { icon: '👁️', label: 'Watchlist' },
+    { icon: '🔔', label: 'Notifications' },
     { icon: '📰', label: 'News' },
     { icon: '🔍', label: 'Research' },
   ];

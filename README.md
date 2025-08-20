@@ -11,11 +11,19 @@ A modern, responsive stock trading dashboard built with React, featuring real-ti
 
 **Access the application:** `http://localhost:5173`
 
+**Backend API:** `http://localhost:3001`
+
 ## ✨ Key Features
+
+### 🔐 **User Authentication**
+- Secure login/register with email and password
+- Google OAuth integration
+- User profile management
+- Session persistence with Supabase
 
 ### 📊 **Interactive Dashboard**
 - Real-time market overview with live price updates
-- Multiple chart types (Line, Area, Bar, Pie, Radar)
+- Multiple chart types (Line, Area, Bar, Pie, Radar, Candlestick)
 - Market indices tracking (S&P 500, NASDAQ, DOW JONES, RUSSELL 2000)
 - Live stock ticker with animated scrolling
 - Sector performance analysis
@@ -34,10 +42,23 @@ A modern, responsive stock trading dashboard built with React, featuring real-ti
 - Transaction history tracking
 - Portfolio integration
 
+### 👁️ **Watchlist Management**
+- Add/remove stocks to personal watchlist
+- Real-time price tracking for watchlist stocks
+- Custom alerts and notifications
+- Portfolio integration
+
+### 🔔 **Smart Notifications**
+- Price alerts with custom thresholds
+- Market news notifications
+- System alerts and updates
+- Real-time notification center
+
 ### 🔍 **Research & Analysis**
+- Advanced candlestick charts with technical indicators
 - Historical price charts with multiple timeframes (30D, 3M, 6M, 1Y)
 - Volume analysis with dual-axis charts
-- Technical indicators visualization
+- Technical indicators (RSI, MACD, Moving Averages)
 - Company information and fundamentals
 - Interactive chart tooltips
 
@@ -61,12 +82,21 @@ A modern, responsive stock trading dashboard built with React, featuring real-ti
 - **Vite 5.4.1** - Fast build tool and dev server
 - **Tailwind CSS 3.4.10** - Utility-first CSS framework
 - **Recharts 2.15.1** - Composable charting library
+- **Lightweight Charts 4.1.3** - Professional trading charts
 - **Material-UI 6.0.2** - React component library
+- **React Hot Toast** - Notification system
+
+### Backend & APIs
+- **Node.js/Express** - RESTful API server
+- **Socket.IO** - Real-time WebSocket connections
+- **Alpha Vantage API** - Real market data integration
+- **Finnhub API** - Market news and company data
+- **Supabase** - Authentication and database
 
 ### Data & State Management
 - **Custom React Hooks** - State management and data fetching
-- **Real-time Data Simulation** - Mock market data with realistic price movements
-- **Local Storage** - Portfolio persistence
+- **Real-time Data Integration** - Live market data with API fallbacks
+- **Supabase Database** - User data and portfolio persistence
 - **Context API** - Global state management
 
 ### Development Tools
@@ -103,12 +133,15 @@ src/
 ### Prerequisites
 - Node.js 18+ 
 - npm or pnpm
+- Supabase account (for authentication)
+- Alpha Vantage API key (for real market data)
+- Finnhub API key (for news data)
 
 ### Installation
 
 1. **Clone the repository**
    ```bash
-    
+   git clone <repository-url>
    cd stockpulse
    ```
 
@@ -119,23 +152,54 @@ src/
    pnpm install
    ```
 
-3. **Start development server**
+3. **Set up environment variables**
+   ```bash
+   cp env.example .env
+   ```
+   
+   Edit `.env` and add your API keys:
+   ```env
+   ALPHA_VANTAGE_API_KEY=your_alpha_vantage_api_key
+   FINNHUB_API_KEY=your_finnhub_api_key
+   VITE_SUPABASE_URL=your_supabase_url
+   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
+
+4. **Start the backend server**
+   ```bash
+   npm run server
+   # or
+   pnpm server
+   ```
+
+5. **Start the frontend development server**
    ```bash
    npm run dev
    # or
    pnpm dev
    ```
 
-4. **Open in browser**
+6. **Open in browser**
    ```
-   http://localhost:5173
+   Frontend: http://localhost:5173
+   Backend API: http://localhost:3001
    ```
 
 ### Build for Production
 
 ```bash
+# Build frontend
 npm run build
+
+# Start production server
 npm run preview
+```
+
+### Run Full Stack Development
+
+```bash
+# Run both frontend and backend simultaneously
+npm run dev:full
 ```
 
 ## 🎯 Core Functionality
@@ -223,18 +287,29 @@ EXPOSE 5173
 CMD ["npm", "run", "preview"]
 ```
 
-## 📈 Future Enhancements
+## 📈 Recent Enhancements
 
-- [ ] Real API integration (Alpha Vantage, Finnhub)
-- [ ] User authentication and accounts
-- [ ] Advanced technical indicators
-- [ ] Watchlist functionality
+- ✅ Real API integration (Alpha Vantage, Finnhub)
+- ✅ User authentication and accounts with Supabase
+- ✅ Advanced technical indicators (RSI, MACD, Moving Averages)
+- ✅ Watchlist functionality
+- ✅ Real-time WebSocket connections
+- ✅ Backend API with Node.js/Express
+- ✅ Database integration with Supabase
+- ✅ Push notifications and price alerts
+- ✅ Advanced candlestick charts
+- ✅ Professional trading interface
+
+## 🚀 Future Enhancements
+
 - [ ] Mobile app (React Native)
-- [ ] Real-time WebSocket connections
-- [ ] Backend API with Node.js/Express
-- [ ] Database integration (PostgreSQL/MongoDB)
-- [ ] Push notifications
 - [ ] Social trading features
+- [ ] Advanced portfolio analytics
+- [ ] Options trading interface
+- [ ] Cryptocurrency integration
+- [ ] Paper trading mode
+- [ ] Advanced order types
+- [ ] Risk management tools
 
 
 
@@ -249,7 +324,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - GitHub: [www.linkedin.com/in/abdul-samad-khan9012](https://github.com/)
 - Email: [abdulkhan14296@gmail.com](mailto:your.email@example.com)
 
-⭐ **Star this repository if you find it helpful!**
+
 
 ---
 

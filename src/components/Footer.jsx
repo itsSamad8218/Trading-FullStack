@@ -2,8 +2,6 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    
-
     <footer className="mt-auto border-t border-slate-800 bg-slate-900">
       <div className="px-6 py-4 flex items-center justify-between">
         <div className="text-sm text-gray-400">© {new Date().getFullYear()} StockPulse</div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Dashboard from './components/Dashboard';
@@ -7,8 +8,14 @@ import Portfolio from './components/Portfolio';
 import MarketNews from './components/MarketNews';
 import Markets from './components/Markets';
 import Research from './components/Research';
+import Watchlist from './components/Watchlist';
+import Notifications from './components/Notifications';
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
 import Footer from './components/Footer';
 import { portfolioData, generateLiveStockData } from './data/stockData';
+import { authService } from './services/auth';
+import { io } from 'socket.io-client';
 
 function App() {
   const [activeView, setActiveView] = useState('Dashboard');
@@ -17,14 +24,55 @@ function App() {
     return portfolioData.map(item => ({ symbol: item.symbol, shares: item.shares, avgPrice: item.avgPrice }));
   });
   const [livePrices, setLivePrices] = useState({});
+  const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(true); // Temporarily set to true
+  const [showAuth, setShowAuth] = useState(false);
+  const [authMode, setAuthMode] = useState('login'); // 'login' or 'register'
+  const [socket, setSocket] = useState(null);
 
-  // Live prices updater
+  // Authentication check - temporarily disabled
+  useEffect(() => {
+    // Temporarily skip authentication check
+    // const checkAuth = async () => {
+    //   try {
+    //     const { user } = await authService.getCurrentUser();
+    //     if (user) {
+    //       setUser(user);
+    //       setIsAuthenticated(true);
+    //     }
+    //   } catch (error) {
+    //     console.log('No authenticated user');
+    //   }
+    // };
+    
+    // checkAuth();
+  }, []);
+
+  // Socket connection for real-time updates
+  useEffect(() => {
+    if (isAuthenticated) {
+      const newSocket = io('http://localhost:3001');
+      setSocket(newSocket);
+
+      newSocket.on('priceUpdate', (updates) => {
+        const priceMap = {};
+        updates.forEach(update => {
+          priceMap[update.symbol] = update.price;
+        });
+        setLivePrices(prev => ({ ...prev, ...priceMap }));
+      });
+
+      return () => newSocket.close();
+    }
+  }, [isAuthenticated]);
+
+  // Live prices updater (fallback to mock data)
   useEffect(() => {
     const update = () => {
       const snapshot = generateLiveStockData();
       const priceMap = {};
       snapshot.forEach(s => { priceMap[s.symbol] = s.price; });
-      setLivePrices(priceMap);
+      setLivePrices(prev => ({ ...prev, ...priceMap }));
     };
     update();
     const id = setInterval(update, 3000);
@@ -69,6 +117,26 @@ function App() {
     });
   };
 
+  const handleLoginSuccess = (userData) => {
+    setUser(userData);
+    setIsAuthenticated(true);
+    setShowAuth(false);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await authService.signOut();
+      setUser(null);
+      setIsAuthenticated(false);
+      setActiveView('Dashboard');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
+
+  const switchToRegister = () => setAuthMode('register');
+  const switchToLogin = () => setAuthMode('login');
+
   const renderView = () => {
     switch (activeView) {
       case 'Dashboard':
@@ -83,18 +151,42 @@ function App() {
         );
       case 'Portfolio':
         return <Portfolio portfolio={portfolioComputed} />;
+      case 'Watchlist':
+        return <Watchlist user={user} />;
       case 'News':
         return <MarketNews />;
       case 'Research':
         return <Research />;
+      case 'Notifications':
+        return <Notifications user={user} />;
       default:
         return <Dashboard />;
     }
   };
 
+  // Show authentication if not logged in - temporarily disabled
+  // if (!isAuthenticated) {
+  //   return (
+  //     <div className="min-h-screen bg-slate-900">
+  //       {authMode === 'login' ? (
+  //         <Login 
+  //           onSwitchToRegister={switchToRegister}
+  //           onLoginSuccess={handleLoginSuccess}
+  //         />
+  //       ) : (
+  //         <Register 
+  //           onSwitchToLogin={switchToLogin}
+  //           onRegisterSuccess={handleLoginSuccess}
+  //         />
+  //       )}
+  //       <Toaster position="top-right" />
+  //     </div>
+  //   );
+  // }
+
   return (
     <div className="flex flex-col min-h-screen bg-slate-900">
-      <Header />
+      <Header user={user} onLogout={handleLogout} />
       <StockTicker />
       <div className="flex flex-1">
         <Sidebar activeItem={activeView} onSelect={setActiveView} />
@@ -103,6 +195,7 @@ function App() {
         </main>
       </div>
       <Footer />
+      <Toaster position="top-right" />
     </div>
   );
 }

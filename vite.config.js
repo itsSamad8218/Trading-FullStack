@@ -7,5 +7,5 @@ export default defineConfig({
   plugins: [viteSourceLocator({
     prefix: "mgx",
   }), react()],
-  base: "/StockPulse-Trading-App/",
+  
 })
