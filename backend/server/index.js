@@ -33,6 +33,7 @@ const ALPHA_VANTAGE_BASE_URL = 'https://www.alphavantage.co/query';
 const FINNHUB_BASE_URL = 'https://finnhub.io/api/v1';
 
 // Mock data for demo mode
+
 const mockStockData = {
   AAPL: { price: 175.50, change: 2.30, changePercent: '+1.33%', volume: 45000000 },
   GOOGL: { price: 2750.80, change: -15.20, changePercent: '-0.55%', volume: 12000000 },
@@ -43,6 +44,13 @@ const mockStockData = {
   META: { price: 325.40, change: 5.60, changePercent: '+1.75%', volume: 15000000 },
   NFLX: { price: 450.85, change: -8.15, changePercent: '-1.78%', volume: 8000000 }
 };
+
+// Default route for root
+app.get('/', (req, res) => {
+  res.send('StockPulse backend is running.');
+});
+
+
 
 const mockMarketIndices = [
   { index: 'S&P 500', value: '4,567.89', change: '+23.45', changePercent: '+0.52%', trend: 'up' },

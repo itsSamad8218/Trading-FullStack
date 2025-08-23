@@ -24,7 +24,7 @@ function App() {
     return portfolioData.map(item => ({ symbol: item.symbol, shares: item.shares, avgPrice: item.avgPrice }));
   });
   const [livePrices, setLivePrices] = useState({});
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({ id: 1, name: 'Demo User', email: 'demo@stockpulse.com' });
   const [isAuthenticated, setIsAuthenticated] = useState(true); // Temporarily set to true
   const [showAuth, setShowAuth] = useState(false);
   const [authMode, setAuthMode] = useState('login'); // 'login' or 'register'
@@ -32,18 +32,18 @@ function App() {
 
   // Authentication check - temporarily disabled
   useEffect(() => {
-    // Temporarily skip authentication check
-    // const checkAuth = async () => {
-    //   try {
-    //     const { user } = await authService.getCurrentUser();
-    //     if (user) {
-    //       setUser(user);
-    //       setIsAuthenticated(true);
-    //     }
-    //   } catch (error) {
-    //     console.log('No authenticated user');
-    //   }
-    // };
+   // Temporarily skip authentication check
+    const checkAuth = async () => {
+      try {
+        const { user } = await authService.getCurrentUser();
+        if (user) {
+          setUser(user);
+          setIsAuthenticated(true);
+        }
+      } catch (error) {
+        console.log('No authenticated user');
+      }
+    };
     
     // checkAuth();
   }, []);
@@ -164,25 +164,7 @@ function App() {
     }
   };
 
-  // Show authentication if not logged in - temporarily disabled
-  // if (!isAuthenticated) {
-  //   return (
-  //     <div className="min-h-screen bg-slate-900">
-  //       {authMode === 'login' ? (
-  //         <Login 
-  //           onSwitchToRegister={switchToRegister}
-  //           onLoginSuccess={handleLoginSuccess}
-  //         />
-  //       ) : (
-  //         <Register 
-  //           onSwitchToLogin={switchToLogin}
-  //           onRegisterSuccess={handleLoginSuccess}
-  //         />
-  //       )}
-  //       <Toaster position="top-right" />
-  //     </div>
-  //   );
-  // }
+  // Show authentication if not logged in
 
   return (
     <div className="flex flex-col min-h-screen bg-slate-900">
