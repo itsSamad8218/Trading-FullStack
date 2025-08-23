@@ -18,6 +18,14 @@ const io = new Server(server, {
 
 const PORT = process.env.PORT || 3001;
 
+
+app.use(cors({
+  origin: [""],
+  methods: ["POST", "GET"],
+  credentials: true
+}));
+
+
 // Middleware
 app.use(cors());
 app.use(express.json());
