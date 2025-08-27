@@ -1,13 +1,10 @@
-# 📈 StockPulse - Real-Time Stock Trading Dashboard
+#📈 StockPulse - Real-Time Stock Trading Dashboard
 
 A modern, responsive stock trading dashboard built with React, featuring real-time market data, interactive charts, portfolio management, and trading capabilities. Perfect for demonstrating full-stack development skills and financial technology expertise.
 
-![StockPulse Dashboard](https://img.shields.io/badge/React-18.3.1-blue?logo=react)
-![Vite](https://img.shields.io/badge/Vite-5.4.1-purple?logo=vite)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4.10-38B2AC?logo=tailwind-css)
-![Recharts](https://img.shields.io/badge/Recharts-2.15.1-green)
 
-## 🚀 Live Demo
+
+##🚀 Live Demo
 
 **Access the application:** `http://localhost:5173`
 
@@ -28,7 +25,7 @@ A modern, responsive stock trading dashboard built with React, featuring real-ti
 - Live stock ticker with animated scrolling
 - Sector performance analysis
 
-### 💼 **Portfolio Management**
+###💼 **Portfolio Management**
 - Real-time portfolio value calculation
 - Profit/Loss tracking with percentage changes
 - Individual stock performance monitoring
@@ -313,15 +310,11 @@ CMD ["npm", "run", "preview"]
 
 
 
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 👨‍💻 Developer
 
 **ABDUL SAMAD KHAN** - Full Stack Developer
 - LinkedIn: [www.linkedin.com/in/abdul-samad-khan9012]
-
 - GitHub: [https://github.com/itsSamad8218]
 - Email: [abdulkhan14296@gmail.com]
 
